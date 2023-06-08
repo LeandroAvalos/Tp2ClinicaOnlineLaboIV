@@ -1,0 +1,47 @@
+<div class="user-buttons">
+    <div class="d-flex flex-wrap">
+        <div class="flex-column" style="flex: 3;">
+            <h2 style="text-align: center">Pacientes:</h2>
+            <div class="d-flex flex-wrap">
+                <div *ngFor="let paciente of arrayDePacientes" class="user-button">
+                    <button class="user-button-nuevo" (click)="clickListado(paciente)">
+                        <img src="{{ paciente.fotos[0] }}" alt="Imagen de paciente" class="user-image">
+                    </button>
+                    <label class="user-name">{{ paciente.nombre }}</label>
+                 
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flex-column" style="flex: 3;">
+            <h2 style="text-align: center">Especialista:</h2>
+            <div class="d-flex flex-wrap">
+                <div *ngFor="let especialista of arrayDeEspecialista" class="user-button">
+                    <button class="user-button-nuevo" (click)="clickListado(especialista)">
+                    <img src="{{ especialista.fotos[0] }}" alt="Imagen de especialista" class="user-image">
+                    </button>
+                    <label class="user-name">{{ especialista.nombre }}</label>
+            
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-column" style="flex: 3;">
+            <h2 style="text-align: center">Admin:</h2>
+            <div class="d-flex flex-wrap">
+                <div *ngFor="let administrador of arrayDeAdministradores" class="user-button">
+                    <button class="user-button-nuevo" (click)="clickListado(administrador)">
+                        <img src="{{ administrador.fotos[0] }}" alt="Imagen de administrador" class="user-image">
+                    </button>
+                    <label class="user-name">{{ administrador.nombre }}</label>
+         
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="spinner" class="spinner-container">
+    <div class=" loader"></div>
+  </div>
+  

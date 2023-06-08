@@ -1,0 +1,316 @@
+.registro-container {
+    font-family: "Poppins", sans-serif;
+    background-image: url("https://infraestructuramedica.mx/wp-content/uploads/2021/08/pasillo-de-hospital-min.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .opcion-registros {
+    z-index: 100;
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .card-forms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas con igual ancho */
+    gap: 4rem; /* Espacio entre los elementos */
+    justify-content: center; /* Centrar horizontalmente */
+    
+  }
+  
+  .card-form 
+    div {
+      display: inline-block;
+      flex-direction: column;
+      width: 25vw;
+      margin-bottom: 1rem;
+      background: rgba(0,156,140,.6);
+        /* border-radius: 2rem; */
+      border: 2px solid #fff;
+      box-shadow: 2px 2px 4px #000;
+    }
+      .card-form h2 {
+        text-align: center;
+        text-shadow: 1px 1px #000;
+      }
+      .card-form img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10rem;
+      }
+    
+    .card-form div:hover {
+      color: #fff;
+      background: rgba(77,128,159,0.685);
+      cursor: pointer;
+      transition: background 0.5s, color 0.5s;
+    }
+  
+  
+  .registro-paciente,
+  .registro-especialista {
+     position: absolute;
+      z-index: 100;
+      width: 80%;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .grow{
+    transition: .5s, color .10s;
+        -webkit-transition: .5s, color .10s;
+        -moz-transition: .5s, color .10s;
+    }
+    .grow:hover{
+        transform: scale3d(1.1, 1.1, 0.3);
+            -webkit-transform: scale3d(1.1, 1.1, 0.3);
+            -moz-transform: scale3d(1.1, 1.1, 0.3);
+    }
+  
+  .btn-volver {
+    position: absolute;
+    z-index: 100;
+    color: #fff;
+    padding: 14px 40px;
+    background: rgba(77,128,159,0.900);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px none #00bfa6;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 1px #000;
+    top: 90.5%;
+    left: 56%;
+    /* transform: translate(-50%, -50%); */
+  }
+
+  .btn-volver2 {
+    position: absolute;
+    z-index: 100;
+    color: #fff;
+    padding: 14px 40px;
+    background: rgba(77,128,159,0.900);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px none #00bfa6;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 1px #000;
+    top: 86%;
+    left: 43%;
+    /* transform: translate(-50%, -50%); */
+  }
+  
+  .btn-volver:hover {
+    border: 2px solid #000;
+    background-color: rgba(0,156,140,.8);
+    color: #fff;
+  }
+  .btn-volver2:hover {
+    border: 2px solid #000;
+    background-color: rgba(0,156,140,.8);
+    color: #fff;
+  }
+
+  .transUp{
+    transition: .5s, color .10s;
+        -webkit-transition: .5s, color .10s;
+        -moz-transition: .5s, color .10s;
+    }
+    .transUp:hover{
+        transform: translatey(-20px);
+            -webkit-transform: translatey(-20px);
+            -moz-transform: translatey(-20px);
+    }
+  
+
+  
+  .text-focus-in {
+    -webkit-animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+      both;
+    animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  }
+
+  @-webkit-keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  @keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  
+
+  
+  @media screen and (max-width: 480px) {
+    .registro-container {
+      min-height: 100vh;
+      background-repeat: repeat;
+    }
+  
+    .opcion-registros {
+      position: absolute;
+      z-index: 100;
+      top: 58%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    .card-form 
+      div { 
+        width: 95vw;
+        height: 40vh;
+        margin-bottom: 1rem;
+      }
+        .card-form h2 {
+          font-size: 2rem;
+          text-align: center;
+          font-weight: bolder;
+          text-shadow: 1px 1px #fff;
+        }
+        .card-form img {
+          width: 14rem;
+        }
+      }
+
+    .spinner-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100000000000;
+    }
+    
+    .spinner {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 10px solid transparent;
+      border-top-color: #17444f;
+      border-bottom-color: #4b9a81;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  
+    .loader {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 50px;
+      height: 80px;
+      border-top: 5px solid #fff;
+      border-bottom: 5px solid #fff;
+      position: relative;
+      background: linear-gradient(#FF3D00 30px, transparent 0) no-repeat;
+      background-size: 2px 40px;
+      background-position: 50% 0px;
+      animation: spinx 5s linear infinite;
+    }
+    .loader:before, .loader:after {
+      content: "";
+      width: 40px;
+      left: 50%;
+      height: 35px;
+      position: absolute;
+      top: 0;
+      transform: translatex(-50%);
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 0 0 20px 20px;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-position: 0 0px;
+      animation: lqt 5s linear infinite;
+    }
+    .loader:after {
+      top: auto;
+      bottom: 0;
+      border-radius: 20px 20px 0 0;
+      animation: lqb 5s linear infinite;
+    }
+    @keyframes lqt {
+      0%, 100% {
+        background-image: linear-gradient(#FF3D00 40px, transparent 0);
+        background-position: 0% 0px;
+      }
+      50% {
+        background-image: linear-gradient(#FF3D00 40px, transparent 0);
+        background-position: 0% 40px;
+      }
+      50.1% {
+        background-image: linear-gradient(#FF3D00 40px, transparent 0);
+        background-position: 0% -40px;
+      }
+    }
+    @keyframes lqb {
+      0% {
+        background-image: linear-gradient(#FF3D00 40px, transparent 0);
+        background-position: 0 40px;
+      }
+      100% {
+        background-image: linear-gradient(#FF3D00 40px, transparent 0);
+        background-position: 0 -40px;
+      }
+    }
+    @keyframes spinx {
+      0%, 49% {
+        transform: rotate(0deg);
+        background-position: 50% 36px;
+      }
+      51%, 98% {
+        transform: rotate(180deg);
+        background-position: 50% 4px;
+      }
+      100% {
+        transform: rotate(360deg);
+        background-position: 50% 36px;
+      }
+    }
+  

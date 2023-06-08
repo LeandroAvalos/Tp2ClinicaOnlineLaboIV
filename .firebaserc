@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tp2labo4clinicaonline": {
+      "hosting": {
+        "tp2ClinicaOnline": [
+          "tp2labo4clinicaonline"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tp2labo4clinicaonline"
+  }
+}

@@ -1,0 +1,81 @@
+.cuadroEspecialidad{
+  width: 100%; 
+  background-color: #f1f1f1; 
+  margin-top: 14rem; 
+  height: 36.3rem;
+  background: rgba(0,156,140,.6);
+  border: 2px solid #fff;
+  /* border-radius: 1rem; */
+  box-shadow: 2px 2px 2px #000;
+}
+
+.cuadroEspecialidad h2 {
+  margin-top: 20px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  background-color: rgba(77,128,159,0.900);
+  margin-bottom: 3rem;
+  /* border-radius: 1rem; */
+}
+  
+  .custom-list {
+    border: 1px solid #ccc;
+    padding: 5px;
+  
+  }
+  
+  ul {
+    list-style-type: style type none;;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 1px;
+  }
+  
+  .btn {
+    padding: 1;
+    width: 100%;
+    background: transparent;
+    border: 1px groove rgba(0, 0, 0, 0.315);
+    border-radius: 0;
+    text-align: left;
+    margin-top: 0;
+    height: 20px;
+  }
+  
+  .btn:hover {
+    background-color: rgba(77,128,159,0.900);
+  }
+
+  .text-focus-in {
+    -webkit-animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+      both;
+    animation: text-focus-in 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  }
+
+  @-webkit-keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  @keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }

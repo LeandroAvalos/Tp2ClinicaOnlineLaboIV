@@ -1,0 +1,131 @@
+
+<div class="tabla-usuario text-focus-in" *ngIf="!createrUserMenu">
+    <h3 style="font-size: 2rem; font-weight: bolder">LISTADO DE USUARIOS</h3>
+    <table class="table table-striped table-bordered table-sm">
+      <thead>
+        <tr class="table-warning">
+          <th scope="col" style="color: #000;">PERFIL</th>
+          <th scope="col" style="color: #000;">NOMBRE</th>
+          <th scope="col" style="color: #000;">APELLIDO</th>
+          <th scope="col" style="color: #000;">DNI</th>
+          <th scope="col" style="color: #000;">ACCIÓN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr-tabla table-info" *ngFor="let user of usersList">
+  
+          <td *ngIf="user.hasOwnProperty('obraSocial')" style="text-transform: upperCase">
+            <span>Paciente</span>
+          </td>
+          <td *ngIf="user.hasOwnProperty('especialidad')" style="text-transform: upperCase">
+            <span>Especialista</span>
+          </td>
+          <td *ngIf="!user.hasOwnProperty('obraSocial') && !user.hasOwnProperty('especialidad')" style="text-transform: upperCase">
+            <span>Administrador</span>
+          </td>
+          <td>
+            <span>{{ user.nombre }}</span>
+          </td>
+          <td>
+            <span>{{ user.apellido }}</span>
+          </td>
+          <td>
+            <span>{{ user.dni }}</span>
+          </td>
+          <td>
+            <div *ngIf="user.hasOwnProperty('especialidad')">
+              <button
+                class="btn-habilitar"
+                *ngIf="!user.aprobado"
+                (click)="updateUser(user, 1)"
+              >
+                Habilitar
+              </button>
+              <button
+                class="btn-deshabilitar"
+                *ngIf="user.aprobado"
+                (click)="updateUser(user, 2)"
+              >
+                Deshabilitar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <button
+    class="btn-habilitar btn-nuevo-usuario"
+    *ngIf="!createrUserMenu"
+    (click)="showCreateUserMenu()"
+  >
+    REGISTRAR NUEVO USUARIO
+  </button>
+  
+  
+  <button
+    class="btn-habilitar btn-menu-volver"
+    *ngIf="createrUserMenu"
+    (click)="showUserList()"
+  >
+    VOLVER AL LISTADO
+  </button>
+  
+  <div
+    class="opcion-registros row"
+    *ngIf="
+      !formPaciente && !formEspecialista && !formAdministrador && createrUserMenu
+    " 
+  >
+
+  <div class="container" style="position: fixed;top: 30%; left: 0;">
+    <div class="d-flex flex-wrap col">
+      <div class="flex-column text-focus-in"  style="flex: 1;display: flex; justify-content: center;align-items: center;" (click)="goToFormPaciente()">
+
+          <h2>Paciente</h2>
+          <img src="../../../assets/paciente.png" style="width: 50%;" alt="imagen paciente" />
+
+      </div>
+      <div class="flex-column text-focus-in"  style="flex: 1;display: flex; justify-content: center;align-items: center;" (click)="goToFormEspecialista()">
+
+          <h2>Especialista</h2>
+          <img src="../../../assets/especialista.png"  style="width: 50%;" alt="imagen especialista" />
+
+      </div>
+        <div class="flex-column text-focus-in"  style="flex: 1;display: flex; justify-content: center;align-items: center;" (click)="goToFormAdministrador()">
+      
+            <h2>Administrador</h2>
+            <img src="../../../assets/administrador.png" style="width: 50%;"  alt="imagen adminitrador" />
+    
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+ 
+  
+  <div class="registro-paciente" *ngIf="formPaciente">
+    <button class="btn-volver transUp text-focus-in" (click)="goToRegistro()">
+      Volver
+    </button>
+    <app-form-alta-paciente></app-form-alta-paciente>
+  </div>
+  <div class="registro-especialista" *ngIf="formEspecialista">
+    <button class="btn-volver2 transUp text-focus-in" (click)="goToRegistro()">
+      Volver
+    </button>
+    <app-form-alta-especialista></app-form-alta-especialista>
+  </div>
+  <div class="registro-especialista" *ngIf="formAdministrador">
+    <button class="btn-volver transUp text-focus-in" (click)="goToRegistro()">
+      Volver
+    </button>
+    <app-form-alta-administrador></app-form-alta-administrador>
+  </div>
+  
+  <div class="usuarios-container"></div>
+  <div *ngIf="spinner" class="spinner-container">
+    <div class=" loader"></div>
+  </div>

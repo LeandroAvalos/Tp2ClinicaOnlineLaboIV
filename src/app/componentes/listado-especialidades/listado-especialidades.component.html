@@ -1,0 +1,30 @@
+<div class="cuadroEspecialidad text-focus-in " >
+        
+    <h2>Especialidades</h2>
+  
+        <div *ngIf="especialidades.length > 0">
+           
+            <input type="text" [(ngModel)]="valorInput" (input)="filtrarLista()" placeholder="Buscar"
+                style="width: 90%;" pattern="[a-zA-Z ]+" title="Solo se permiten letras" (blur)="validarEspecialidad()"
+                [ngClass]="{'is-invalid': !inputValidado, 'is-valid': inputValidado}">
+              
+            <button (click)="agregarItem()" style="width: 10%; height: 50%;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+           
+            <ul>
+                <div *ngIf="listaFiltrada.length==0"
+                    style="display: flex; flex-direction: column; align-items: flex-start;height: 20px;font-family: 'Poppins', sans-serif; width: 100%;">
+                    <button *ngFor="let item of especialidades" class="btn" style="height: 70px;width: 300px;"
+                        (click)="clickListado(item)">{{item}}</button>
+                </div>
+                <div *ngIf="listaFiltrada.length>0"
+                    style="display: flex; flex-direction: column; align-items: flex-start;height: 20px;font-family: 'Poppins', sans-serif; width: 100%;">
+                    <button *ngFor="let especialidad of listaFiltrada" class="btn" style="height: 70px;width: 300px;"
+                        (click)="clickListado(especialidad)">{{ especialidad }}</button>
+                </div>
+            </ul>
+        </div>
+      
+    </div>
+    
+
+  

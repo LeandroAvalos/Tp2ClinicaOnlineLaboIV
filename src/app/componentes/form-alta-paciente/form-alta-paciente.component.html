@@ -1,0 +1,116 @@
+<form class="contenedor-form text-focus-in">
+    <h2>REGISTRO DE PACIENTE</h2>
+
+    <div class="row mt-5">
+     
+        <div class="col-sm mb-5">
+    
+            <input [ngModelOptions]="{standalone: true}" (input)="validarName()" [ngClass]="{'is-invalid': !nameValido, 'is-valid': nameValido}"
+           [(ngModel)]="nombre" type="text" id="form3Example6c" class="form-control text-success" placeholder="Ingrese nombre" />
+           <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="nombre.length > 0">
+                Nombre invalido (minimo 3 caracteres - maximo 15)
+            </div>
+           
+
+        </div>
+     
+        <div class="col-sm mb-5">
+         
+            <input [ngModelOptions]="{standalone: true}" (input)="validarApellido()" [ngClass]="{'is-invalid': !apellidoValido, 'is-valid': apellidoValido}" 
+            [(ngModel)]="apellido"  type="text" class="form-control" id="apellido" placeholder="Apellido" />
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="apellido.length > 0">
+                Apellido invalido (minimo 3 caracteres - maximo 15)
+            </div>
+          
+
+        </div>
+      
+        <div class="col-sm mb-5">
+            
+            <input [ngModelOptions]="{standalone: true}" (input)="validarEdad()" [ngClass]="{'is-invalid': !edadValidada, 'is-valid': edadValidada}"
+            [(ngModel)]="edad"  type="number" class="form-control" placeholder="Edad" min="18" max="99" />
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="edad!=null && edad!=0">
+                Ingrese una edad válida (entre 18 y 99 años)
+              </div>
+              
+
+        </div>
+ 
+        <div class="col-sm mb-5">
+            
+            <input [ngModelOptions]="{standalone: true}" (input)="validarDni()" [ngClass]="{'is-invalid': !dniValidado, 'is-valid': dniValidado}"
+            [(ngModel)]="dni"  type="text" class="form-control" placeholder="N° DNI" />
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="dni.length > 0">
+                Ingrese un DNI válido (entre 7 y 8 numeros)
+              </div>
+           
+
+        </div>
+    </div>
+
+    <div class="row">
+      
+        <div class="col-sm mb-5">
+         
+            <input [ngModelOptions]="{standalone: true}" (input)="validarObraSocial()" [ngClass]="{'is-invalid': !obraSocialValidada, 'is-valid': obraSocialValidada}" 
+            [(ngModel)]="obraSocial"  type="text" class="form-control" placeholder="Obra Social" />
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="obraSocial.length > 0">
+                Ingrese una Obra Social válida (entre 4 y 20 caracteres).
+              </div>
+            
+
+        </div>
+   
+        <div class="col-sm mb-5">
+   
+            <input [ngModelOptions]="{standalone: true}"  type="email" class="form-control" placeholder="Email" 
+            [(ngModel)]="mail" (input)="validarCorreo()" [ngClass]="{'is-invalid': !emailValidado, 'is-valid': emailValidado}"/>
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="mail.length > 0">
+                Ingrese email válido.
+            </div>
+        
+
+        </div>
+       
+        <div class="col-sm mb-5">
+           
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="password" (input)="validarPass()"
+            [ngClass]="{'is-invalid': !claveValidada, 'is-valid': claveValidada}"  type="password" class="form-control" placeholder="Contraseña" />
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="password.length > 0">
+                Ingrese clave válida (6 o mas caracteres).
+            </div>
+           
+
+        </div>
+
+        <div class="col-sm mb-5">
+           
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="claveRepetida" (input)="validarPassRepetido()"
+            [ngClass]="{'is-invalid': !claveRepetidaValidada, 'is-valid': claveRepetidaValidada}" type="password" class="form-control" placeholder="Repita contraseña" />
+            <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;" *ngIf="claveRepetida.length > 0">
+                Repita la clave correctamente (6 o mas caracteres).
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <input type="file" id="fileInput" name="ft" accept="image/*" multiple
+                    (change)="handleFileInputChange($event)" class="form-control" value="" required>
+        
+
+        <!-- Div para mostrar las imágenes seleccionadas -->
+        <!-- <div class="images" style="align-items: center;display: flex;justify-content: center;">
+            <img [src]="image" *ngFor="let image of images" style="width: 100px;height: 100px;">
+        </div> -->
+    </div>
+
+
+
+
+    <button class="btn transUp" (click)="guardaPaciente()">Registrar</button>
+</form>
+
+<div *ngIf="spinner" class="spinner-container">
+    <div class=" loader"></div>
+  </div>
