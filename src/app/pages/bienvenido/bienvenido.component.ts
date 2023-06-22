@@ -18,15 +18,15 @@ export class BienvenidoComponent {
     this.arrayDeEspecialista=[];
     this.arrayDeAdministradores=[];
 
-    this.firestore.traerPacientes().subscribe(usuarios => {
+    this.firestore.traer().subscribe(usuarios => {
         
       this.arrayDePacientes = usuarios;
     });
-    this.firestore.traerEspecialistas().subscribe(usuarios => {
+    this.firestore.traerEsp().subscribe(usuarios => {
       
       this.arrayDeEspecialista = usuarios;
     });
-    this.firestore.traerAdministradores().subscribe(usuarios => {
+    this.firestore.traerAdmin().subscribe(usuarios => {
       
       this.arrayDeAdministradores = usuarios;
       // this.spinner=false;

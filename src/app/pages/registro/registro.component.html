@@ -1,9 +1,9 @@
 <div class="opcion-registros" *ngIf="!formPaciente && !formEspecialista">
-    <div class="card-forms text-focus-in">
+  <div class="card-forms text-focus-in">
     <div class="row card-form text-focus-in grow" (click)="goToFormPaciente()">
       <div>
         <h2>Paciente</h2>
-        <img src="../../../assets/paciente.png" alt="imagen paciente"/>
+        <img src="../../../assets/paciente.png" alt="imagen paciente" />
       </div>
     </div>
     <div class="row card-form text-focus-in grow" (click)="goToFormEspecialista()">
@@ -12,18 +12,18 @@
         <img src="../../../assets/especialista.png" alt="imagen especialista" />
       </div>
     </div>
-    </div>
   </div>
-  <div class="registro-paciente" *ngIf="formPaciente">
-    <button class="btn-volver text-focus-in transUp" (click)="goToRegistro()">Volver</button>
-    <app-form-alta-paciente></app-form-alta-paciente>
-  </div>
-  <div class="registro-especialista" *ngIf="formEspecialista">
-    <button class="btn-volver2 text-focus-in transUp" (click)="goToRegistro()">Volver</button>
-    <app-form-alta-especialista></app-form-alta-especialista>
-  </div>
-  <div class="registro-container"></div>
+</div>
+<div class="registro-paciente" *ngIf="formPaciente">
+  <button class="btn-volver text-focus-in transUp" (click)="goToRegistro()">Volver</button>
+  <app-form-alta-paciente></app-form-alta-paciente>
+</div>
+<div class="registro-especialista" *ngIf="formEspecialista">
+  <button class="btn-volver2 text-focus-in transUp" (click)="goToRegistro()">Volver</button>
+  <app-form-alta-especialista></app-form-alta-especialista>
+</div>
+<div class="registro-container"></div>
 
-  <!-- <div *ngIf="spinner" class="spinner-container">
+<!-- <div *ngIf="spinner" class="spinner-container">
     <div class=" loader"></div>
 </div> -->

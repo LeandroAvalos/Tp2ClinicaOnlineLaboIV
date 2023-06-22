@@ -99,11 +99,42 @@
                 </div>
                 
             </div>
-            
+<!--             
             <div class="col-sm mb-4">
         
                 <input type="file" id="fileInput" name="fotos" accept="image/*" multiple
                 (change)="handleFileInputChange($event)" class="form-control" value=""  required>
+            </div> -->
+
+            <div class="row">
+
+                <div class="col-sm mb-5">
+                    <input type="file" id="fileInput" name="fotos" accept="image/*" multiple
+                (change)="handleFileInputChange($event)" class="form-control" value=""  required>
+        
+                </div>
+                <!-- INPUT CAPTCHA -->
+                <div class="col-sm mb-5">
+                    <input [ngModelOptions]="{standalone: true}" type="text" class="form-control" [(ngModel)]="captchaEscrito"
+                        (input)="validarCaptcha()" [ngClass]="{'is-invalid': !captchaValido, 'is-valid': captchaValido}"
+                        placeholder="CAPTCHA" />
+                    <div class="invalid-feedback" style="margin-left: 5px; font-size: 15px; color: red;"
+                        *ngIf="captchaEscrito.length > 0">
+                        Captcha Invalido.
+                    </div>
+                </div>
+                <div class="col-sm mb-5">
+                    <p class="captcha">
+                        {{ captcha }}
+                    </p>
+                </div>
+        
+        
+        
+                <!-- Div para mostrar las imágenes seleccionadas -->
+                <!-- <div class="images" style="align-items: center;display: flex;justify-content: center;">
+                    <img [src]="image" *ngFor="let image of images" style="width: 100px;height: 100px;">
+                </div> -->
             </div>
         
             

@@ -31,7 +31,7 @@
       width: 25vw;
       margin-bottom: 1rem;
       background: rgba(0,156,140,.6);
-        /* border-radius: 2rem; */
+        border-radius: 1.5rem;
       border: 2px solid #fff;
       box-shadow: 2px 2px 4px #000;
     }

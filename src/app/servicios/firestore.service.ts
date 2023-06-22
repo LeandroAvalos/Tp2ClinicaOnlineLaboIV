@@ -18,8 +18,9 @@ export class FirestoreService {
     this.angularFireAuth.createUserWithEmailAndPassword(paciente.mail,  paciente.password).then((data) =>{
       data.user?.sendEmailVerification();
 
-      const documento = this.angularFirestore.doc('pacientes/' + this.angularFirestore.createId());
-      const uid = documento.ref.id;
+      const uid = data.user?.uid;
+
+      const documento = this.angularFirestore.doc('pacientes/' + uid);
   
       documento.set({
         uid: uid,
@@ -46,8 +47,9 @@ export class FirestoreService {
     this.angularFireAuth.createUserWithEmailAndPassword(especialista.mail,  especialista.password).then((data) =>{
       data.user?.sendEmailVerification();
 
-      const documento = this.angularFirestore.doc('especialistas/' + this.angularFirestore.createId());
-      const uid = documento.ref.id;
+      const uid = data.user?.uid;
+
+      const documento = this.angularFirestore.doc('especialistas/' + uid);
   
       documento.set({
         uid: uid,
@@ -75,8 +77,9 @@ export class FirestoreService {
     this.angularFireAuth.createUserWithEmailAndPassword(administrador.mail,  administrador.password).then((data) =>{
       data.user?.sendEmailVerification();
 
-      const documento = this.angularFirestore.doc('administradores/' + this.angularFirestore.createId());
-      const uid = documento.ref.id;
+      const uid = data.user?.uid;
+
+      const documento = this.angularFirestore.doc('administradores/' + uid);
   
       documento.set({
         uid: uid,
@@ -150,16 +153,10 @@ export class FirestoreService {
     );
   }
 
-  updateEspecialista(userMod: any) {
-    this.angularFirestore
-      .doc<any>(`especialistas/${userMod.uid}`)
-      .update(userMod)
-      .then(() => {})
-      .catch((error) => {
-        this.sweetalert.showSuccessAlert("Ocurrio un error", "Administrador", "error")
-        // this.notifyService.showError('Ocurrio un error', 'Administrador');
-      });
-  } 
+  traerEspecialidades() {
+    const collection = this.angularFirestore.collection<any>('especialidades');
+    return collection.valueChanges();
+  }
 
   setEspecialidad(nombres: any) {
     const documento = this.angularFirestore.doc('especialidades/' + this.angularFirestore.createId());
@@ -171,27 +168,39 @@ export class FirestoreService {
     });
   }
 
-  traerEspecialidades() {
-    const collection = this.angularFirestore.collection<any>('especialidades');
-    return collection.valueChanges();
-  }
-
-  traerPacientes() {
-    const collection = this.angularFirestore.collection<any>('pacientes');
-    return collection.valueChanges();
-  }
-  traerEspecialistas() {
-    const collection = this.angularFirestore.collection<any>('especialistas');
-    return collection.valueChanges();
-  }
-  traerAdministradores() {
+  traerAdmin() {
     const collection = this.angularFirestore.collection<any>('administradores');
     return collection.valueChanges();
   }
-  
-  traer(nombreDeLaColeccion:string){
-    return collectionData(collection(this.firestore, nombreDeLaColeccion))
+
+  traerEsp() {
+    const collection = this.angularFirestore.collection<any>('especialistas');
+    return collection.valueChanges();
   }
+
+  traer() {
+    const collection = this.angularFirestore.collection<any>('pacientes');
+    return collection.valueChanges();
+  }
+
+  traerUsuario(uid: string) {
+    console.log("combinados ",this.traerUsuariosCombinados());
+    return this.traerUsuariosCombinados().pipe(
+      map((usuarios: any[]) => {
+        return usuarios.find(user => user.uid === uid);
+      })
+    );
+  }
+  
+  updateEspecialista(userMod: any) {
+    this.angularFirestore
+      .doc<any>(`especialistas/${userMod.uid}`)
+      .update(userMod)
+      .then(() => { })
+      .catch((error) => {
+      });
+  }
+
 
   private createMessage(errorCode: string): string {
     let message: string = '';
@@ -217,6 +226,66 @@ export class FirestoreService {
     }
 
     return message;
+  }
+
+  //TURNOS
+  createTurnList(turn: any) {
+    this.angularFirestore
+      .collection<any>('turnos')
+      .add(turn)
+      .then((data) => {
+        this.angularFirestore.collection('turnos').doc(data.id).set({
+          id: data.id,
+          especialista: turn.especialista,
+          turnos: turn.turnos,
+        });
+      });
+  }
+
+  getTurnList() {
+    const collection = this.angularFirestore.collection<any>('turnos');
+    return collection.valueChanges();
+  }
+
+  updateTurnList(turn: any) {
+    this.angularFirestore
+      .doc<any>(`turnos/${turn.id}`)
+      .update(turn)
+      .then(() => { })
+      .catch((error) => {
+        console.log(error.message);
+        this.sweetalert.showSuccessAlert('Ocurrio un error', 'Administrador', 'error');
+      });
+  }
+
+  createHistorialClinico(turn: any) {
+    return this.angularFirestore
+      .collection<any>('historialesClinicos')
+      .add(turn)
+      .then((data) => {
+        this.angularFirestore
+          .collection('historialesClinicos')
+          .doc(data.id)
+          .set({
+            id: data.id,
+            especialidad: turn.especialidad,
+            especialista: turn.especialista,
+            paciente: turn.paciente,
+            fecha: turn.fecha,
+            detalle: turn.detalle,
+            detalleAdicional: turn.detalleAdicional,
+          });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
+
+  getHistorialesClinicos() {
+    const collection = this.angularFirestore.collection<any>(
+      'historialesClinicos'
+    );
+    return collection.valueChanges();
   }
 
 }

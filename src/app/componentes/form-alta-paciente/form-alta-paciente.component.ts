@@ -16,6 +16,7 @@ export class FormAltaPacienteComponent {
   emailValidado:boolean=false;
   edadValidada: boolean = false;
   claveValidada:boolean=false;
+  captchaValido:boolean=false;
   claveRepetidaValidada:boolean=false;
   obraSocialValidada: boolean = false;
   nombre:string="";
@@ -26,8 +27,10 @@ export class FormAltaPacienteComponent {
   password:string="";
   claveRepetida:string="";
   obraSocial:string="";
+  captchaEscrito:string="";
   spinner:boolean=false;
   formFotos:any;
+  captcha: string = '';
 
   imageCount: number = 0;
   images: string[];
@@ -38,11 +41,13 @@ export class FormAltaPacienteComponent {
     private firestore:FirestoreService,
     private storage: Storage) {
     this.images = [];
+    this.captcha = this.generateRandomString(6);
   }
 
   async guardaPaciente()
   {
-    if(this.nameValido && this.apellidoValido && this.obraSocialValidada && this.edadValidada && this.dniValidado && this.emailValidado && this.claveValidada && this.claveRepetidaValidada)
+    if(this.nameValido && this.apellidoValido && this.obraSocialValidada && this.edadValidada && this.dniValidado && 
+      this.emailValidado && this.claveValidada && this.claveRepetidaValidada && this.captchaValido)
     {
       this.spinner=true;
       let fotosTomadas: [] | any;
@@ -142,11 +147,32 @@ export class FormAltaPacienteComponent {
     this.obraSocial=""; 
   }
 
+  generateRandomString(num: number) {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result1 = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < num; i++) {
+      result1 += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    return result1;
+  }
+
   validarName() {
     if (this.nombre.match(/[a-zA-Z]/) && this.nombre.length<15 && this.nombre.length>2) {
       this.nameValido = true;
     } else {
       this.nameValido = false;
+    }
+  }
+
+  validarCaptcha() {
+    if (this.captchaEscrito == this.captcha) {
+      this.captchaValido = true;
+    } else {
+      this.captchaValido = false;
     }
   }
 

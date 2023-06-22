@@ -1,4 +1,4 @@
-<section class="vh-100" style="background-image: url('https://infraestructuramedica.mx/wp-content/uploads/2021/08/pasillo-de-hospital-min.png'); background-size: cover;
+<!-- <section class="vh-100" style="background-image: url('https://infraestructuramedica.mx/wp-content/uploads/2021/08/pasillo-de-hospital-min.png'); background-size: cover;
 background-attachment: fixed; background-position: center;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center">
@@ -9,20 +9,9 @@ background-attachment: fixed; background-position: center;">
                 <img src="https://i.pinimg.com/564x/f0/91/13/f09113cc029af753bcf1cf397b332149.jpg"
                   alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
               </div>
-              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class=" col-lg-6 ">
                 <div class="card-body p-4 p-lg-2 text-black">
   
-                  
-  
-                    <!-- <div class="d-flex align-items-center mb-3 pb-1">
-                      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                      <span class="h1 fw-bold mb-0">Logo</span>
-                    </div> -->
-  
-                    <!-- <h5 class="fw-normal mb-1 pb-3" style="letter-spacing: 1px;">Inicio Rapido</h5>
-                    <button class="btn btn-success mb-3" style="margin-right: 10px;" (click)="rellenarUsuarioYContrasenia('admin@admin.com','111111')">Administrador</button>
-                    <button class="btn btn-success mb-3" (click)="rellenarUsuarioYContrasenia('invitado@invitado.com','222222')">Invitado</button> -->
-
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de sesión</h5>
   
                     <div class="form-outline mb-4">
@@ -49,16 +38,80 @@ background-attachment: fixed; background-position: center;">
                       <button class="btn btn-dark btn-lg btn-block" type="button" (click)="login()">Iniciar sesión</button>
                     </div>
   
-                    <!-- <a class="small text-muted" href="#!">Forgot password?</a> -->
+                
                     <p class="mb-5 pb-lg-2" style="color: #393f81;">No tenes una cuenta? <button class="btn btn-primary" routerLink="../registro">Registrate aca!</button></p>
-                    <!-- <a href="#!" class="small text-muted">Terms of use.</a> -->
-                    <!-- <a href="#!" class="small text-muted">Privacy policy</a> -->
+             
+                  </div>
                 </div>
               </div>
+              <div class="col-lg-6 d-flex align-items-center gradient-custom-2 text-center">
+             
+                <app-listado-usuarios (botonClickeado)="clickListadoUsuarios($event)"></app-listado-usuarios>
+              </div>
             </div>
-            <app-listado-usuarios (botonClickeado)="clickListadoUsuarios($event)"></app-listado-usuarios>
+          </div>
+        </div>
+      </div>
+      <div>
+
+      </div>
+  </section>
+
+ -->
+
+ <section class="h-100 gradient-form">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100" style="margin-top: 60px;">
+      <div class="col-xl-9">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-4 mx-md-2" style="margin-bottom: 0px; padding-bottom: 0px;">
+
+
+                <div class="text-center">
+                  <img src="https://i.pinimg.com/564x/f0/91/13/f09113cc029af753bcf1cf397b332149.jpg"
+                  alt="login form" class="img-fluid" style=" height: 250px; width: 300px;" />
+                </div>
+                
+                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de sesión</h5>
+  
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form2Example17">Email</label>
+                      <input type="email" id="form2Example17" class="form-control form-control-lg" [(ngModel)]="emailRelleno"
+                      (input)="validarCorreo()" [ngClass]="{'is-invalid': !correoValido, 'is-valid': correoValido}"/>
+                      <div class="invalid-feedback" *ngIf="emailRelleno.length > 0">
+                        Ingrese un correo válido
+                      </div>
+                  
+                    </div>
+  
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form2Example27">Contraseña</label>
+                      <input type="password" id="form2Example27" class="form-control form-control-lg"[(ngModel)]="passwordRelleno" 
+                      (input)="validarPass()" [ngClass]="{'is-invalid': !passValido, 'is-valid': passValido}"/>
+                      <div class="invalid-feedback" *ngIf="passwordRelleno.length > 0">
+                        Ingrese una contraseña válida
+                      </div>
+                 
+                    </div>
+  
+                    <div class="pt-1 mb-4">
+                      <button class="btn btn-dark btn-lg btn-block" type="button" (click)="login()">Iniciar sesión</button>
+                    </div>
+  
+                
+                    <p class="mb-5 pb-lg-2" style="color: #393f81;">No tenes una cuenta? <button class="btn btn-primary" routerLink="../registro">Registrate aca!</button></p>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center text-center" style="background: rgba(0,156,140);">
+              <app-listado-usuarios (botonClickeado)="clickListadoUsuarios($event)"></app-listado-usuarios>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+

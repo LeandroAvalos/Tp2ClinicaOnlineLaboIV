@@ -74,16 +74,33 @@ export class ListadoEspecialidadesComponent {
   }
 
 
+  // clickListado(especialidad: any) {
+  //   if(!this.arrayEspecialidades.includes(especialidad) && this.arrayEspecialidades.length < 5){
+  //     this.arrayEspecialidades.push(especialidad);
+  //     this.botonClickeado.emit(this.arrayEspecialidades);
+  //   }
+  //   else if(this.arrayEspecialidades.includes(especialidad) && this.arrayEspecialidades.length < 6)
+  //   {
+  //     let indice = this.arrayEspecialidades.indexOf(especialidad);
+  //     this.arrayEspecialidades.splice(indice,1);
+  //     this.botonClickeado.emit(this.arrayEspecialidades);
+  //   }
+  // }
+
   clickListado(especialidad: any) {
-    if(!this.arrayEspecialidades.includes(especialidad) && this.arrayEspecialidades.length < 5){
-      this.arrayEspecialidades.push(especialidad);
+
+    const especialidadConNombre = { nombre: especialidad };
+
+    if (!this.arrayEspecialidades.some((e:any) => e.nombre === especialidad)) {
+      if (this.arrayEspecialidades.length < 2) {
+        this.arrayEspecialidades.push(especialidadConNombre);
+        this.botonClickeado.emit(this.arrayEspecialidades);
+      }
+    } else {
+      const indice = this.arrayEspecialidades.findIndex((e:any) => e.nombre === especialidad);
+      this.arrayEspecialidades.splice(indice, 1);
       this.botonClickeado.emit(this.arrayEspecialidades);
     }
-    else if(this.arrayEspecialidades.includes(especialidad) && this.arrayEspecialidades.length < 6)
-    {
-      let indice = this.arrayEspecialidades.indexOf(especialidad);
-      this.arrayEspecialidades.splice(indice,1);
-      this.botonClickeado.emit(this.arrayEspecialidades);
-    }
+  
   }
 }

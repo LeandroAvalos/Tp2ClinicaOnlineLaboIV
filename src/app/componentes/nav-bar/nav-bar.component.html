@@ -12,6 +12,18 @@
           <li class="nav-item" *ngIf="authlogin.seLogueo && authlogin.esAdmin">
             <a class="nav-link active" aria-current="page"  routerLink="usuarios">Usuarios</a>
           </li>
+          <li class="nav-item" *ngIf="authlogin.seLogueo && !authlogin.esAdmin">
+            <a class="nav-link active" aria-current="page"  routerLink="misTurnos">Mis Turnos</a>
+          </li>
+          <li class="nav-item" *ngIf="authlogin.seLogueo">
+            <a class="nav-link active" aria-current="page"  routerLink="miPerfil">Mi Perfil</a>
+          </li>
+          <li class="nav-item" *ngIf="authlogin.seLogueo && (authlogin.esAdmin || authlogin.esPaciente)">
+            <a class="nav-link active" aria-current="page"  routerLink="solicitarTurno">Solicitar Turnos</a>
+          </li>
+          <li class="nav-item" *ngIf="authlogin.seLogueo && authlogin.esAdmin">
+            <a class="nav-link active" aria-current="page"  routerLink="turnos">Turnos</a>
+          </li>
           <li class="nav-item" *ngIf="!authlogin.seLogueo">
             <a class="nav-link active" aria-current="page"  routerLink="login">Login</a>
           </li>

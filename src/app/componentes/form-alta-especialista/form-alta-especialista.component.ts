@@ -22,6 +22,7 @@ export class FormAltaEspecialistaComponent {
   textoEspecialidades:string="";
   spinner:boolean=false;
   formFotos:any;
+  captchaValido:boolean=false;
 
 
   nombre:string="";
@@ -31,6 +32,8 @@ export class FormAltaEspecialistaComponent {
   mail:string="";
   password:string="";
   claveRepetida:string="";
+  captchaEscrito:string="";
+  captcha: string = '';
 
   imageCount: number = 0;
   images: string[];
@@ -40,6 +43,7 @@ export class FormAltaEspecialistaComponent {
     private firestore:FirestoreService,
     private storage: Storage) {
     this.images = [];
+    this.captcha = this.generateRandomString(6);
   }
   handleFileInputChange(event: any) {
     const files: FileList = event.target.files;
@@ -61,7 +65,7 @@ export class FormAltaEspecialistaComponent {
 
   async guardaEspecialista()
   {
-    if(this.nameValido && this.apellidoValido && this.edadValidada && this.dniValidado && this.emailValidado && this.claveValidada && this.claveRepetidaValidada)
+    if(this.nameValido && this.apellidoValido && this.edadValidada && this.dniValidado && this.emailValidado && this.claveValidada && this.claveRepetidaValidada && this.captchaValido)
     {
       this.spinner = true;
       let fotosTomadas: [] | any;
@@ -122,6 +126,19 @@ export class FormAltaEspecialistaComponent {
     }
   }
 
+  generateRandomString(num: number) {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result1 = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < num; i++) {
+      result1 += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    return result1;
+  }
+
   limpiarForm()
   {
     this.formFotos.value = "";
@@ -143,9 +160,23 @@ export class FormAltaEspecialistaComponent {
     this.textoEspecialidades = "";
   }
 
+  // clickListado($event: any) {
+  //   this.textoEspecialidades = $event.join(' - ');
+  //   this.especialidad = $event;
+  // }
+
   clickListado($event: any) {
-    this.textoEspecialidades = $event.join(' - ');
+    //@ts-ignore
+    this.textoEspecialidades = $event.map((especialidad) => especialidad.nombre).join(' - ');
     this.especialidad = $event;
+  }
+
+  validarCaptcha() {
+    if (this.captchaEscrito == this.captcha) {
+      this.captchaValido = true;
+    } else {
+      this.captchaValido = false;
+    }
   }
 
   validarName() {

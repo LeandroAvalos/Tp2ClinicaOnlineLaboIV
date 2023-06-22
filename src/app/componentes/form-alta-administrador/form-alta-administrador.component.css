@@ -75,6 +75,18 @@
   .btn span:last-child {
     display: none;
   }
+
+  .captcha {
+    font-size: 1.2rem;
+    text-align: center;
+    color: black;
+    background: #fff;
+    padding: 0.3rem;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bolder;
+    /* text-shadow: 1px 1px 1px #fff; */
+  }
   
   .btn:hover {
     /* transition: 0.3s; */

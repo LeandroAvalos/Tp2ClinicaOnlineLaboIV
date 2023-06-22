@@ -26,6 +26,9 @@ export class FormAltaAdministradorComponent {
   obraSocial:string="";
   spinner:boolean=false;
   formFotos:any;
+  captchaValido:boolean=false;
+  captchaEscrito:string="";
+  captcha: string = '';
 
   imageCount: number = 0;
   images: string[];
@@ -36,11 +39,12 @@ export class FormAltaAdministradorComponent {
     private firestore:FirestoreService,
     private storage: Storage) {
     this.images = [];
+    this.captcha = this.generateRandomString(6);
   }
 
   async guardaAdministrador()
   {
-    if(this.nameValido && this.apellidoValido && this.edadValidada && this.dniValidado && this.emailValidado && this.claveValidada && this.claveRepetidaValidada)
+    if(this.nameValido && this.apellidoValido && this.edadValidada && this.dniValidado && this.emailValidado && this.claveValidada && this.claveRepetidaValidada && this.captchaValido)
     {
       this.spinner=true;
       let fotosTomadas: [] | any;
@@ -117,6 +121,19 @@ export class FormAltaAdministradorComponent {
     this.claveRepetida="";
   }
 
+  generateRandomString(num: number) {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result1 = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < num; i++) {
+      result1 += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    return result1;
+  }
+
   handleFileInputChange(event: any) {
     const files: FileList = event.target.files;
   
@@ -132,6 +149,14 @@ export class FormAltaAdministradorComponent {
       const file = files[i];
       const imageUrl = URL.createObjectURL(file);
       this.images.push(imageUrl);
+    }
+  }
+
+  validarCaptcha() {
+    if (this.captchaEscrito == this.captcha) {
+      this.captchaValido = true;
+    } else {
+      this.captchaValido = false;
     }
   }
 

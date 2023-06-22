@@ -8,23 +8,47 @@ import { addDoc, collection, collectionData, Firestore, getDoc, getDocs, updateD
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { FirestoreService } from './firestore.service';
+import { map, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private router:Router, private sweetAlert:SweetAlertService, private firestore:Firestore, private firestoreService:FirestoreService) { 
+  constructor(private router:Router, private sweetAlert:SweetAlertService, private firestore:Firestore, 
+    private firestoreService:FirestoreService, private angularFireAuth: AngularFireAuth,) { 
+    this.user$ = this.angularFireAuth.authState.pipe(
+      switchMap((user: any) => {
+        if (user) {
+          return this.firestoreService.traerUsuario(user.uid).pipe(
+            map((usuario: any) => {
+              if (usuario?.obraSocial) {
+                return usuario;
 
+              } else if (this.esAdmin) {
+                return usuario;
+              }
+              else {
+                return usuario;
+              }
+            })
+          );
+        } else {
+          return of(null);
+        }
+      })
+    );
   }
 
   token:string = "";
+  user$?: any;
   seLogueo : boolean = false;
   email:string = "";
   nombreUsuario:string = "";
   fotoUsuario:string="";
   arrayDeAdministradores:any[]=[];
   esAdmin:boolean=false;
+  esPaciente:boolean=false;
 
 
   async login(email:string | any, password:string | any, usuario?:any)
@@ -44,6 +68,11 @@ export class LoginService {
               if(!usuario.hasOwnProperty("obraSocial") && !usuario.hasOwnProperty("especialidad"))
               {
                 this.esAdmin=true;
+              }
+
+              if(usuario.hasOwnProperty("obraSocial"))
+              {
+                this.esPaciente=true;
               }
      
               if(usuario.nombre!=""){

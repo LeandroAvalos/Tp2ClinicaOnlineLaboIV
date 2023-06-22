@@ -21,17 +21,17 @@ export class ListadoUsuariosComponent {
   ngOnInit(): void {
     // this.spinner=true;
 
-      this.firestore.traerPacientes().subscribe(usuarios => {
+      this.firestore.traer().subscribe(usuarios => {
         
-        this.arrayDePacientes = usuarios;
+        this.arrayDePacientes = usuarios.slice(0,3);
       });
-      this.firestore.traerEspecialistas().subscribe(usuarios => {
+      this.firestore.traerEsp().subscribe(usuarios => {
         
-        this.arrayDeEspecialista = usuarios;
+        this.arrayDeEspecialista = usuarios.slice(0,2);
       });
-      this.firestore.traerAdministradores().subscribe(usuarios => {
+      this.firestore.traerAdmin().subscribe(usuarios => {
         
-        this.arrayDeAdministradores = usuarios;
+        this.arrayDeAdministradores = usuarios.slice(0,1);
         // this.spinner=false;
       });
 

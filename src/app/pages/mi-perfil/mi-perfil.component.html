@@ -1,0 +1,286 @@
+
+<div>
+    <div class="contenedor-spinner" *ngIf="spinner">
+      <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+      </div>
+    </div>
+  
+    <div class="perfil" *ngIf="!isEspecialista">
+      <h3>Mi Perfil</h3>
+      <div style="display: flex; justify-content: center">
+        <img class="img-perfil" src="{{ user?.fotos?.length > 0 ? user.fotos[0] : '' }}" alt="imagen 1" />
+
+        <img
+          class="img-perfil"
+          
+          src="{{ user.fotos[1] }}"
+          alt="imagen 2"
+          *ngIf="isPaciente"
+        />
+      </div>
+      <!-- PERFIL USUARIO  -->
+      <div class="row" *ngIf="isPaciente">
+        <div class="col" style="margin-left: 130px; margin-top: 30px;">
+          <label>Nombre</label>
+          <p>{{ user.nombre }}</p>
+          <label>Apellido</label>
+          <p>{{ user.apellido }}</p>
+          <label>Edad</label>
+          <p>{{ user.edad }} años</p>
+          <label>DNI</label>
+          <p>{{ user.dni }}</p>
+        </div>
+        <div class="col" style="margin-top: 30px;">
+          <label>Email</label>
+          <p>{{ user.mail }}</p>
+          <label>Obra Social</label>
+          <p>{{ user.obraSocial }}</p>
+          <label>Perfil del Usuario</label>
+          <p>Paciente</p>
+     
+          <br />
+          <!-- <button
+            *ngIf="hayHistorial"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            class="btn btn-info"
+            (click)="verHistorialClinico()"
+          >
+            Ver Historial Clínico
+          </button>
+          <p *ngIf="!hayHistorial">No hay historial cliníco disponible</p> -->
+        </div>
+      </div>
+  
+      <!-- PERFIL ADMINISTRADOR  -->
+      <div class="row" *ngIf="authService.esAdmin">
+        <div class="col" style="margin-left: 130px; margin-top: 30px;">
+          <label>Nombre</label>
+          <p>{{ user.nombre }}</p>
+          <label>Apellido</label>
+          <p>{{ user.apellido }}</p>
+          <label>Edad</label>
+          <p>{{ user.edad }} años</p>
+        </div>
+        <div class="col" style=" margin-top: 30px;">
+          <label>DNI</label>
+          <p>{{ user.dni }}</p>
+          <label>Email</label>
+          <p>{{ user.mail }}</p>
+          <label>Tipo de Usuario</label>
+          <p>Perfil del Usuario</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- PERFIL ESPECIALISTA -->
+    <div class="perfil-esp" *ngIf="isEspecialista">
+      <h3>Mi Perfil</h3>
+      <div style="display: flex; justify-content: center">
+        <img class="img-perfil" src="{{ user.fotos[0] }}" alt="imagen 1" />
+        <img
+          class="img-perfil"
+          style="width: 3rem; height: 3rem"
+          src="{{ user.fotos[1] }}"
+          alt="imagen 2"
+          *ngIf="isPaciente"
+        />
+      </div>
+  
+      <!-- PERFIL ESPECIALISTA -->
+      <div class="row" *ngIf="isEspecialista">
+        <div class="col col-3">
+          <label>Nombre</label>
+          <p>{{ user.nombre }}</p>
+          <label>Apellido</label>
+          <p>{{ user.apellido }}</p>
+          <label>Edad</label>
+          <p>{{ user.edad }} años</p>
+          <label>DNI</label>
+          <p>{{ user.dni }}</p>
+        </div>
+        <div class="col col-4">
+          <label>Email</label>
+          <p>{{ user.mail }}</p>
+          <label>Perfil del Usuario</label>
+          <p>Especialista</p>
+          <label>Especialidad</label>
+
+          <!-- <p>
+            <span *ngFor="let esp of user.especialidad">{{ esp }} / </span>
+          </p>
+          
+          <button
+            *ngFor="let esp of user.especialidad; let i = index"
+            class="btn btn-secondary"
+            [ngClass]="(i === 0 && especialidad1) ? 'btn-info' : ''"
+            style="text-transform: uppercase; width: 9rem; margin-top: 0.5rem"
+            (click)="showTurns(i)"
+          >
+            {{ esp }}
+          </button> -->
+          
+
+          <p>
+            <span *ngFor="let esp of user.especialidad">{{ esp.nombre }} / </span>
+          </p>
+          <button
+            class="btn btn-primary"
+            [ngClass]="especialidad1 ? 'btn-warning' : ''"
+            style="text-transform: uppercase; width: 9rem; margin-top: 0.5rem"
+            (click)="showTurnsOne()"
+          >
+            {{ user.especialidad[0].nombre }}
+          </button>
+          <button
+            *ngIf="user.especialidad[1]"
+            class="btn btn-primary"
+            [ngClass]="especialidad2 ? 'btn-warning' : ''"
+            style="text-transform: uppercase; width: 9rem; margin-top: 0.5rem"
+            (click)="showTurnsTwo()"
+          >
+            {{ user.especialidad[1].nombre}}
+          </button>
+
+        </div>
+        <div class="col col-5 col-horarios">
+          <label>Mis Horarios</label>
+          <div class="dias-contenedor">
+            <button
+              class="btn btn-primary"
+              [ngClass]="lunes ? 'btn-warning' : ''"
+              (click)="addDay('lunes')"
+            >
+              Lunes
+            </button>
+            <button
+              class="btn btn-primary"
+              [ngClass]="martes ? 'btn-warning' : ''"
+              (click)="addDay('martes')"
+            >
+              Martes
+            </button>
+            <button
+              class="btn btn-primary"
+              [ngClass]="miercoles ? 'btn-warning' : ''"
+              (click)="addDay('miércoles')"
+            >
+              Miércoles
+            </button>
+            <button
+              class="btn btn-primary"
+              [ngClass]="jueves ? 'btn-warning' : ''"
+              (click)="addDay('jueves')"
+            >
+              Jueves
+            </button>
+            <button
+              class="btn btn-primary"
+              [ngClass]="viernes ? 'btn-warning' : ''"
+              (click)="addDay('viernes')"
+            >
+              Viernes
+            </button>
+            <button
+              class="btn btn-primary"
+              [ngClass]="sabado ? 'btn-warning' : ''"
+              (click)="addDay('sábado')"
+            >
+              Sábado
+            </button>
+          </div>
+          <label style="margin-top: 1rem; margin-bottom: 1rem"
+            >Tiempo del Turno (en minutos)</label
+          >
+          <input
+            [(ngModel)]="turnDuration"
+            class="form-control"
+            type="number"
+            placeholder="30 Minutos"
+          />
+          <button
+            style="margin-top: 1rem"
+            class="btn btn-success"
+            (click)="updateUser()"
+          >
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="isEspecialista">
+        <div class="col col-horarios-2">
+          <label>Mis Horarios</label>
+          <div class="dias-contenedor">
+            <button
+              class="btn btn-secondary"
+              [ngClass]="lunes ? 'btn-warning' : ''"
+              (click)="addDay('lunes')"
+            >
+              Lunes
+            </button>
+            <button
+              class="btn btn-secondary"
+              [ngClass]="martes ? 'btn-warning' : ''"
+              (click)="addDay('martes')"
+            >
+              Martes
+            </button>
+            <button
+              class="btn btn-secondary"
+              [ngClass]="miercoles ? 'btn-warning' : ''"
+              (click)="addDay('miércoles')"
+            >
+              Miércoles
+            </button>
+            <button
+              class="btn btn-secondary"
+              [ngClass]="jueves ? 'btn-warning' : ''"
+              (click)="addDay('jueves')"
+            >
+              Jueves
+            </button>
+            <button
+              class="btn btn-secondary"
+              [ngClass]="viernes ? 'btn-warning' : ''"
+              (click)="addDay('viernes')"
+            >
+              Viernes
+            </button>
+            <button
+              class="btn btn-secondary"
+              [ngClass]="sabado ? 'btn-warning' : ''"
+              (click)="addDay('sábado')"
+            >
+              Sábado
+            </button>
+          </div>
+          <label style="margin-top: 1rem; margin-bottom: 1rem"
+            >Duración de Turno (min)</label
+          >
+          <input
+            [(ngModel)]="turnDuration"
+            class="form-control"
+            type="number"
+            placeholder="30 Minutos"
+          />
+          <button
+            style="margin-top: 1rem"
+            class="btn btn-success"
+            (click)="updateUser()"
+          >
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+  
+    </div>
+    <div class="perfil-container"></div>
+  </div>
+  
+  
