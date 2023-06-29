@@ -43,18 +43,18 @@
           <p>{{ user.obraSocial }}</p>
           <label>Perfil del Usuario</label>
           <p>Paciente</p>
-     
+          <label>Historial Clínico</label>
           <br />
-          <!-- <button
+          <button
             *ngIf="hayHistorial"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            class="btn btn-info"
+            class="btn btn-warning"
             (click)="verHistorialClinico()"
           >
             Ver Historial Clínico
           </button>
-          <p *ngIf="!hayHistorial">No hay historial cliníco disponible</p> -->
+          <p *ngIf="!hayHistorial">No hay historial cliníco disponible</p>
         </div>
       </div>
   
@@ -282,5 +282,165 @@
     </div>
     <div class="perfil-container"></div>
   </div>
+
+
+  <div
+  class="modal fade modal-xl"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        
+        <label style="font-size: 1rem; font-weight: bolder; margin-right: 2rem; margin-left: 12rem;"
+          >FILTROS:
+        </label>
+        <button
+          class="btn"
+          [ngClass]="btnTodo ? 'btn-primary' : 'btn-warning'"
+          style="margin-right: 1rem"
+          (click)="filtrarHistorialClinico('todo')"
+        >
+          TODO
+        </button>
+        <button
+          class="btn"
+          [ngClass]="btnClinico ? 'btn-primary' : 'btn-warning'"
+          style="margin-right: 1rem"
+          (click)="filtrarHistorialClinico('Pediatra')"
+        >
+          PEDIATRA
+        </button>
+        <button
+          class="btn"
+          [ngClass]="btnOdontologo ? 'btn-primary' : 'btn-warning'"
+          style="margin-right: 1rem"
+          (click)="filtrarHistorialClinico('Odontologia')"
+        >
+          ODONTOLOGIA
+        </button>
+        <button
+          class="btn"
+          [ngClass]="btnOftalmologo ? 'btn-primary' : 'btn-warning'"
+          style="margin-right: 1rem"
+          (click)="filtrarHistorialClinico('Traumatologia')"
+        >
+          TRAUMATOLOGIA
+        </button>
+        
+        <button
+          type="button"
+          class="btn btn-primary"
+          style="
+            margin-top: 2rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          "
+          [disabled]="!hayHistorialFiltrado"
+          (click)="crearPDF()"
+        >
+          Descargar PDF
+        </button>
+        <div id="pdf">
+          <p style="text-align: right; font-size: 1rem">
+            {{ fechaActual | fecha }}
+          </p>
+          <div
+            style=" margin-bottom: 2rem" class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <div>
+              <h2
+                style="
+                  text-align: center;
+                  font-size: 1.5rem;
+                  font-weight: bolder;
+                  padding-top: 2rem;
+                  margin-left: auto;
+                  margin-right: auto;
+                "
+                id="exampleModalLabel"
+              >
+                CLÍNICA ONLINE
+              </h2>
+            </div>
+            <div>
+                <img
+                  src="../../../assets/hospital.png"
+                  style="width: 100px"
+                  alt="logo"
+                />
+            </div>
+          </div>
+          <h1 style="text-align: center; font-size: 2rem">
+            HISTORIA CLÍNICA DE
+            <span style="text-transform: uppercase; font-weight: bolder"
+              >{{ user.apellido }} {{ user.nombre }}</span
+            >
+          </h1>
+          <h3
+            *ngIf="!hayHistorialFiltrado"
+            style="text-align: center;" class="text-warning"
+          >
+            El paciente no posee un historial clinico en esta especialidad
+          </h3>
+          <div
+            *ngFor="let historial of historialClinicoFiltrado"
+            class="carta-historial"
+          >
+            <h3>
+              INFORME -
+              <span style="text-transform: uppercase">{{
+                historial?.especialidad
+              }}</span>
+              - {{ historial?.fecha | fecha }}
+              <!-- {{ (historial?.fecha.seconds * 1000) | date: 'dd/MM/yyyy HH:mm:ss' }} -->
+            </h3>
+            <hr />
+            <p>
+              <span>Especialista: </span
+              >{{ historial?.especialista?.apellido | capitalizarPalabras }},
+              {{ historial?.especialista?.nombre | capitalizarPalabras }}
+            </p>
+            <p><span>Detalle: </span></p>
+            <p>Altura: {{ historial?.detalle?.altura }}</p>
+            <p>Peso: {{ historial?.detalle?.peso }}</p>
+            <p>Temperatura: {{ historial?.detalle?.temperatura }}</p>
+            <p>Presión: {{ historial?.detalle?.presion }}</p>
+            <p><span>Detalles adicionales: </span></p>
+            <p *ngIf="historial?.detalleAdicional?.clave1">
+              {{ historial?.detalleAdicional?.clave1 }}:
+              {{ historial?.detalleAdicional?.valor1 }}
+            </p>
+            <p *ngIf="historial?.detalleAdicional?.clave2">
+              {{ historial?.detalleAdicional?.clave2 }}:
+              {{ historial?.detalleAdicional?.valor2 }}
+            </p>
+            <p *ngIf="historial?.detalleAdicional?.clave3">
+              {{ historial?.detalleAdicional?.clave3 }}:
+              {{ historial?.detalleAdicional?.valor3 }}
+            </p>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="spinner" class="spinner-container">
+  <div class=" loader"></div>
+</div>
   
   

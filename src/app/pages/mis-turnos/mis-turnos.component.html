@@ -1,15 +1,5 @@
 
 <div>
-    <div class="contenedor-spinner" *ngIf="spinner">
-      <div class="wrapper">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-      </div>
-    </div>
   
     <div class="turnos" *ngIf="isPaciente">
       <h3>MIS TURNOS</h3>
@@ -229,7 +219,7 @@
                   style="box-shadow: 2px 2px 4px #000; margin-right: 1rem"
                   (click)="cancelarTurnoEspecialista(turn)"
                   *ngIf="
-                    turn.estado != 'aceptado' &&
+                    turn.estado == 'aceptado' &&
                     turn.estado != 'realizado' &&
                     turn.estado != 'rechazado' &&
                     turn.estado != 'cancelado' &&
@@ -632,4 +622,8 @@
   
       </div>
     </div>
+  </div>
+
+  <div *ngIf="spinner" class="spinner-container">
+    <div class=" loader"></div>
   </div>

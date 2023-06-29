@@ -1,14 +1,4 @@
 <div>
-    <div class="contenedor-spinner" *ngIf="spinner">
-      <div class="wrapper">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-      </div>
-    </div>
   
     <div class="turnos">
       <h3>GESTIÓN DE TURNOS</h3>
@@ -106,4 +96,8 @@
     </div>
   
     <div class="turnos-container"></div>
+  </div>
+
+  <div *ngIf="spinner" class="spinner-container">
+    <div class=" loader"></div>
   </div>

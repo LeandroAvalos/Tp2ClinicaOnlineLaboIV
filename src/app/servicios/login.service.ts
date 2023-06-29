@@ -49,6 +49,7 @@ export class LoginService {
   arrayDeAdministradores:any[]=[];
   esAdmin:boolean=false;
   esPaciente:boolean=false;
+  esEspecialista:boolean=false;
 
 
   async login(email:string | any, password:string | any, usuario?:any)
@@ -74,6 +75,11 @@ export class LoginService {
               {
                 this.esPaciente=true;
               }
+
+              if(usuario.hasOwnProperty("especialidad"))
+              {
+                this.esEspecialista=true;
+              }
      
               if(usuario.nombre!=""){
                 this.nombreUsuario = usuario.nombre;
@@ -84,6 +90,7 @@ export class LoginService {
               {
                 this.fotoUsuario = usuario.fotos;
               }
+              this.firestoreService.createUserLog(usuario);
               this.router.navigate(['/bienvenido']);
             }
             else

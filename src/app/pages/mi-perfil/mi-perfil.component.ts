@@ -4,6 +4,7 @@ import { FirestoreService } from '../../servicios/firestore.service';
 import { jsPDF } from 'jspdf';
 import { LoginService } from 'src/app/servicios/login.service';
 import { SweetAlertService } from 'src/app/servicios/sweet-alert.service';
+import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -430,19 +431,19 @@ export class MiPerfilComponent {
         this.btnOdontologo = false;
         this.btnOftalmologo = false;
         break;
-      case 'clinico':
+      case 'Pediatra':
         this.btnTodo = false;
         this.btnClinico = true;
         this.btnOdontologo = false;
         this.btnOftalmologo = false;
         break;
-      case 'odontologo':
+      case 'Odontologia':
         this.btnTodo = false;
         this.btnClinico = false;
         this.btnOdontologo = true;
         this.btnOftalmologo = false;
         break;
-      case 'oftalmologo':
+      case 'Traumatologia':
         this.btnTodo = false;
         this.btnClinico = false;
         this.btnOdontologo = false;
@@ -470,6 +471,7 @@ export class MiPerfilComponent {
   }
 
   crearPDF() {
+    this.spinner=true;
     const DATA = document.getElementById('pdf');
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
@@ -499,6 +501,7 @@ export class MiPerfilComponent {
         return doc;
       })
       .then((docResult: any) => {
+        this.spinner=false;
         docResult.save(`historial_clinico.pdf`);
       });
   }

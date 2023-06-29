@@ -25,6 +25,15 @@ import { TurnosComponent } from './pages/turnos/turnos.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
+import { PacientesComponent } from './pages/pacientes/pacientes.component';
+import { GraficosComponent } from './pages/graficos/graficos.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeslizarCardsDirective } from './directivas/deslizar-cards.directive';
+import { InteriorCardDirective } from './directivas/interior-card.directive';
+import { CambioColorPdfExcelDirective } from './directivas/cambio-color-pdf-excel.directive';
+import { DiaYHoraPipe } from './pipes/dia-yhora.pipe';
+import { CapitalizarPalabrasPipe } from './pipes/capitalizar-palabras.pipe';
+import { FechaPipe } from './pipes/fecha.pipe';
 
 
 @NgModule({
@@ -43,7 +52,15 @@ import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
     TurnosComponent,
     SolicitarTurnoComponent,
     MisTurnosComponent,
-    MiPerfilComponent
+    MiPerfilComponent,
+    PacientesComponent,
+    GraficosComponent,
+    DeslizarCardsDirective,
+    InteriorCardDirective,
+    CambioColorPdfExcelDirective,
+    DiaYHoraPipe,
+    CapitalizarPalabrasPipe,
+    FechaPipe,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +68,7 @@ import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
     FormsModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

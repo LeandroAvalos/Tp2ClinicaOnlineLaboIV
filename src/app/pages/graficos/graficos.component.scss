@@ -1,0 +1,198 @@
+.informes-container {
+    font-family: "Poppins", sans-serif;
+    background-image: url("https://infraestructuramedica.mx/wp-content/uploads/2021/08/pasillo-de-hospital-min.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .contenedor-estadisticas {
+    position: absolute;
+    width: 95vw;
+    height: 50vh;
+    top: 50%;
+    left: 49.5%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    padding: 1rem;
+    // border-radius: 1rem;
+    border: 3px solid white;
+    // box-shadow: 2px 2px 4px rgb(141, 0, 0);
+    background: rgba(255, 255, 255, 0.75);
+    h3 {
+      text-align: start;
+      font-size: 1.5rem;
+      color: #fff;
+      // background: rgba(0, 0, 0, 0.534);
+      padding: 10px;
+      border-radius: 20px;
+      // box-shadow: 2px 2px 4px #000;
+      font-weight: bolder;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      text-shadow: 1px 1px 2px rgb(0, 0, 0);
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      color: rgb(100, 100, 100);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+  }
+  
+  .carta-especialista {
+    height: 35vh;
+    border: 2px solid #fff;
+    background: rgba(0,156,140,.6);
+    // box-shadow: 2px 2px 4px #000;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    img {
+      margin-top: 2rem;
+      width: 9rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    p {
+      text-align: center;
+      color: #fff;
+      font-weight: bolder;
+      text-shadow: 1px 1px #000;
+      margin-top: 1rem;
+    }
+    small {
+      display: block;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .informes-container {
+      min-height: 100vh;
+    }
+    .contenedor-estadisticas {
+      position: absolute;
+      width: 95vw;
+      height: auto;
+      top: 12%;
+      left: 2.5%;
+    }
+    .carta-especialista {
+      width: 98%;
+      height: auto;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000000000;
+  }
+  
+  .spinner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid transparent;
+    border-top-color: #17444f;
+    border-bottom-color: #4b9a81;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loader {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50px;
+    height: 80px;
+    border-top: 5px solid #000;
+    border-bottom: 5px solid #000;
+    position: relative;
+    background: linear-gradient(#FF3D00 30px, transparent 0) no-repeat;
+    background-size: 2px 40px;
+    background-position: 50% 0px;
+    animation: spinx 5s linear infinite;
+    z-index: 100000000000;
+  }
+  .loader:before, .loader:after {
+    content: "";
+    width: 40px;
+    left: 50%;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    transform: translatex(-50%);
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 0 0 20px 20px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0 0px;
+    animation: lqt 5s linear infinite;
+    z-index: 100000000000;
+  }
+  .loader:after {
+    top: auto;
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    animation: lqb 5s linear infinite;
+  }
+  @keyframes lqt {
+    0%, 100% {
+      background-image: linear-gradient(#FF3D00 40px, transparent 0);
+      background-position: 0% 0px;
+    }
+    50% {
+      background-image: linear-gradient(#FF3D00 40px, transparent 0);
+      background-position: 0% 40px;
+    }
+    50.1% {
+      background-image: linear-gradient(#FF3D00 40px, transparent 0);
+      background-position: 0% -40px;
+    }
+  }
+  @keyframes lqb {
+    0% {
+      background-image: linear-gradient(#FF3D00 40px, transparent 0);
+      background-position: 0 40px;
+    }
+    100% {
+      background-image: linear-gradient(#FF3D00 40px, transparent 0);
+      background-position: 0 -40px;
+    }
+  }
+  @keyframes spinx {
+    0%, 49% {
+      transform: rotate(0deg);
+      background-position: 50% 36px;
+    }
+    51%, 98% {
+      transform: rotate(180deg);
+      background-position: 50% 4px;
+    }
+    100% {
+      transform: rotate(360deg);
+      background-position: 50% 36px;
+    }
+  }

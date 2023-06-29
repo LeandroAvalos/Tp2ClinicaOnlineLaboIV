@@ -4,6 +4,7 @@
     <table class="table table-striped table-bordered table-sm">
       <thead>
         <tr class="table-warning">
+          <th scope="col" style="color: #000;">VER TURNOS</th>
           <th scope="col" style="color: #000;">PERFIL</th>
           <th scope="col" style="color: #000;">NOMBRE</th>
           <th scope="col" style="color: #000;">APELLIDO</th>
@@ -13,7 +14,25 @@
       </thead>
       <tbody>
         <tr class="tr-tabla table-info" *ngFor="let user of usersList">
-  
+          
+          <td>
+            <button
+              type="button"
+              color="light"
+              mat-fab
+              class="btn-fav"
+              title="Descargar detalles de turnos"
+              (click)="verTurnosUsuario(user)"
+            >
+              <img
+                class="img-btn"
+                src="{{ user.fotos[0] }}"
+                alt="imagen"
+              />
+              <p class="user-name">{{ user.nombre }}</p>
+            </button>
+          </td>
+
           <td *ngIf="user.hasOwnProperty('obraSocial')" style="text-transform: upperCase">
             <span>Paciente</span>
           </td>
@@ -49,6 +68,17 @@
                 Deshabilitar
               </button>
             </div>
+       
+              <button
+                *ngIf="user.hasOwnProperty('obraSocial') && user.historial"
+                class="btn-historial"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="verHistorialPaciente(user)"
+                >
+                Historial
+              </button>
+        
           </td>
         </tr>
       </tbody>
@@ -61,6 +91,14 @@
     (click)="showCreateUserMenu()"
   >
     REGISTRAR NUEVO USUARIO
+  </button>
+
+  <button
+    class="btn-habilitar btn-excel"
+    *ngIf="!createrUserMenu"
+    (click)="descargarExcel()"
+    >
+    Descargar Excel
   </button>
   
   
@@ -124,6 +162,71 @@
     </button>
     <app-form-alta-administrador></app-form-alta-administrador>
   </div>
+
+  <div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          HISTORIAL CLÍNICO
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let historial of historialActivo" class="carta-historial">
+          <h3>{{ historial.fecha | fecha }}</h3>
+          <!-- <h3>{{ (historial?.fecha.seconds * 1000) | date: 'dd/MM/yyyy HH:mm:ss' }}</h3> -->
+          <hr />
+          <p>
+            <span>Paciente: </span>{{ historial.paciente.apellido | capitalizarPalabras }},
+            {{ historial.paciente.nombre | capitalizarPalabras }}
+          </p>
+          <p><span>Especialidad: </span>{{ historial.especialidad }}</p>
+          <p>
+            <span>Especialista: </span>{{ historial.especialista.apellido | capitalizarPalabras }},
+            {{ historial.especialista.nombre | capitalizarPalabras }}
+          </p>
+          <p><span>Detalle: </span></p>
+          <p>Altura: {{ historial.detalle.altura }}</p>
+          <p>Peso: {{ historial.detalle.peso }}</p>
+          <p>Temperatura: {{ historial.detalle.temperatura }}</p>
+          <p>Presión: {{ historial.detalle.presion }}</p>
+          <p><span>Detalles adicionales: </span></p>
+          <p *ngIf="historial.detalleAdicional?.clave1">
+            {{ historial.detalleAdicional?.clave1 }}:
+            {{ historial.detalleAdicional?.valor1 }}
+          </p>
+          <p *ngIf="historial.detalleAdicional?.clave2">
+            {{ historial.detalleAdicional?.clave2 }}:
+            {{ historial.detalleAdicional?.valor2 }}
+          </p>
+          <p *ngIf="historial.detalleAdicional?.clave3">
+            {{ historial.detalleAdicional?.clave3 }}:
+            {{ historial.detalleAdicional?.valor3 }}
+          </p>
+          <hr />
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
   
   <div class="usuarios-container"></div>
   <div *ngIf="spinner" class="spinner-container">

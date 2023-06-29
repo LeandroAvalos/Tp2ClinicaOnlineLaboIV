@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="contenedor-especialistas" *ngIf="specialistSelectionMenu && !patientSelectionMenu">
+        <!-- <div class="contenedor-especialistas" *ngIf="specialistSelectionMenu && !patientSelectionMenu">
             <h3>ESPECIALISTAS</h3>
             <div class="contenerdor-carta-esp" style="display: flex; justify-content: center">
                 <div *ngFor="let esp of especialistasList" (click)="showSpeciality(esp)">
@@ -39,9 +39,31 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+
+        <div class="contenedor-especialistas" *ngIf="!turnsSelectionMenu && speciality">
+            <h3>ESPECIALISTAS</h3>
+            <div class="contenerdor-carta-esp" style="display: flex; justify-content: center">
+                <div *ngFor="let esp of arrayEspecialista" (click)="showTurns(esp)">
+                    <div >
+                        <p style="text-align: center; font-weight: bolder">
+                            {{ esp.nombre }} - {{ esp.apellido }}
+                        </p>
+                        <div class="pepito">
+                        <img class="carta-especialista" style="
+                  width: 10rem;
+                  height: 10rem;
+                  display: flex;
+                  margin-left: 5rem;
+                  justify-content: center;
+                " src="{{ esp.fotos[0] }}" alt="imagen" />
+                </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div *ngIf="activeEspecialista && !turnsSelectionMenu">
+        <!-- <div *ngIf="activeEspecialista && !turnsSelectionMenu">
             <h3>ESPECIALIDADES</h3>
             <div class="row">
                 <div class="col especialidades" style="border-radius: 2rem"
@@ -55,6 +77,24 @@
                 especialidad.nombre != 'Endrocrinología'
               " src="../../../assets/especialista.png" alt="" />
                     <p>{{ especialidad.nombre }}</p>
+                </div>
+            </div>
+        </div> -->
+
+        <div *ngIf="especialidadMenuSeleccion && !patientSelectionMenu">
+            <h3>ESPECIALIDADES</h3>
+            <div class="row">
+                <div class="col especialidades" 
+                    *ngFor="let especialidad of especialidades" (click)="showEspecialista(especialidad)">
+                    <img *ngIf="especialidad.nombre == 'Odontologia'" src="../../../assets/lavando-los-dientes.png" alt="" />
+                    <img *ngIf="especialidad.nombre == 'Pediatra'" src="../../../assets/hijo.png" alt="" />
+                    <img *ngIf="especialidad.nombre == 'Traumatologia'" src="../../../assets/doctor.png" alt="" />
+                    <img *ngIf="
+                especialidad.nombre != 'Odontologia' &&
+                especialidad.nombre != 'Pediatra' &&
+                especialidad.nombre != 'Traumatologia'
+              " src="../../../assets/estetoscopio.png" alt="" />
+                    <!-- <p>{{ especialidad.nombre }}</p> -->
                 </div>
             </div>
         </div>
@@ -76,7 +116,7 @@
                 margin-right: 0.5rem;
                 margin-bottom: 0.5rem;
               " *ngFor="let dia of diasAMostrar" (click)="loadFreeHoursOneDay(dia)">
-                        {{ dia | date: 'd/M/yy'}}
+                        {{ dia | date: 'dd/MM/yy'}}
                     </button>
                     <br />
                     <p *ngIf="diasAMostrar.length == 0" style="text-align: center">
@@ -84,12 +124,11 @@
                     </p>
                     <div style="overflow-y: scroll; height: 15rem">
                         <button class="btn btn-primary" style="
-                  width: 4rem;
-                  height: 4rem;
-                  border-radius: 1rem;
+                  width: 5rem;
+                  height: 3rem;
                   margin: 0.1rem;
                 " *ngFor="let turno of turnosDeUnDiaAMostrar" (click)="seleccionarTurno(turno)">
-                            {{ turno.fecha | date: 'h:mm'  }}
+                            {{ turno.fecha | date: 'HH:mm'  }}
                         </button>
                     </div>
                     <button *ngIf="botonPedirTurno" class="btn btn-success" style="margin-top: 1rem; width: 100%"
@@ -132,5 +171,19 @@
         </div>
     </div>
 
+    <button
+    class="btn-habilitar btn-menu-volver"
+    *ngIf="!especialidadMenuSeleccion || speciality"
+    (click)="volverALasEspecialidades()"
+  >
+    VOLVER A LAS ESPECIALIDADES
+  </button>
+
     <div class="solicitar-turno-container"></div>
+
+    
 </body>
+
+<div *ngIf="spinner" class="spinner-container">
+    <div class=" loader"></div>
+  </div>

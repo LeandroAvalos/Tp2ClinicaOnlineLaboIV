@@ -288,6 +288,32 @@ export class FirestoreService {
     return collection.valueChanges();
   }
 
+  createUserLog(user: any) {
+    const log: any = {};
+    log.fecha = new Date();
+    log.uid = user.uid;
+    if(user.hasOwnProperty('obraSocial')){
+      log.perfil = 'Paciente';
+    }
+    else if(user.hasOwnProperty('especialidad')){
+      log.perfil = 'Especialista';
+    }
+    else if(!user.hasOwnProperty('especialidad') && !user.hasOwnProperty('obraSocial')){
+      log.perfil = 'Administrador';
+    }
+    log.nombre = user.nombre;
+    log.apellido = user.apellido;
+    return this.angularFirestore.collection('logUsuarios').add(log);
+  } // end of createUserLog
+
+  getUsersLog() {
+    const collection = this.angularFirestore.collection<any>(
+      'logUsuarios',
+      (ref) => ref.orderBy('fecha', 'desc')
+    );
+    return collection.valueChanges();
+  }
+
 }
 
 

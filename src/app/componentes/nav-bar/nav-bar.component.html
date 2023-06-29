@@ -10,7 +10,7 @@
             <a class="nav-link active" aria-current="page"  routerLink="bienvenido">Bienvenido</a>
           </li>
           <li class="nav-item" *ngIf="authlogin.seLogueo && authlogin.esAdmin">
-            <a class="nav-link active" aria-current="page"  routerLink="usuarios">Usuarios</a>
+            <a class="nav-link active" aria-current="page"  routerLink="/rutaParaElAdmin/usuarios">Usuarios</a>
           </li>
           <li class="nav-item" *ngIf="authlogin.seLogueo && !authlogin.esAdmin">
             <a class="nav-link active" aria-current="page"  routerLink="misTurnos">Mis Turnos</a>
@@ -22,7 +22,13 @@
             <a class="nav-link active" aria-current="page"  routerLink="solicitarTurno">Solicitar Turnos</a>
           </li>
           <li class="nav-item" *ngIf="authlogin.seLogueo && authlogin.esAdmin">
-            <a class="nav-link active" aria-current="page"  routerLink="turnos">Turnos</a>
+            <a class="nav-link active" aria-current="page"  routerLink="/rutaParaElAdmin/turnos">Turnos</a>
+          </li>
+          <li class="nav-item" *ngIf="authlogin.seLogueo && authlogin.esEspecialista">
+            <a class="nav-link active" aria-current="page"  routerLink="pacientes">Pacientes</a>
+          </li>
+          <li class="nav-item" *ngIf="authlogin.seLogueo && authlogin.esAdmin">
+            <a class="nav-link active" aria-current="page"  routerLink="/rutaParaElAdmin/graficos">Graficos</a>
           </li>
           <li class="nav-item" *ngIf="!authlogin.seLogueo">
             <a class="nav-link active" aria-current="page"  routerLink="login">Login</a>

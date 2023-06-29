@@ -23,6 +23,10 @@ export class SolicitarTurnoComponent {
   patientSelectionMenu: boolean = false;
   turnsSelectionMenu: boolean = false;
 
+  especialidades:any[]=[];
+  especialidadMenuSeleccion:boolean = true;
+  arrayEspecialista:any[]=[];
+
   currentSpecialistTurnList: any[] = [];
   turnosAMostrar: any[] = [];
   turnosDeUnDiaAMostrar: any[] = [];
@@ -51,6 +55,10 @@ export class SolicitarTurnoComponent {
           this.router.navigate(['']);
         }
 
+        this.firestoreService.traerEspecialidades().subscribe((espe:any)=>{
+          this.especialidades = espe;
+        })
+
         this.firestoreService.traerEsp().subscribe((users: any) => {
           this.spinner = false;
           if (users) {
@@ -75,13 +83,42 @@ export class SolicitarTurnoComponent {
       }
     });
 
-
+    console.log(this.speciality);
   }
 
   showSpeciality(esp: any) {
     this.specialistSelectionMenu = false;
     this.activeEspecialista = esp;
-    console.log(esp);
+    console.log(this.speciality);
+  }
+
+  volverALasEspecialidades(){
+    this.especialidadMenuSeleccion = true;
+    this.patientSelectionMenu = false;
+    this.speciality = undefined;
+    console.log(this.speciality);
+    this.turnsSelectionMenu = false;
+  }
+
+  showEspecialista(especialidad:any){
+    this.arrayEspecialista = [];
+    this.especialidadMenuSeleccion = false;
+    this.speciality = especialidad;
+    console.log(this.speciality);
+
+    for (let i = 0; i < this.especialistasList.length; i++) {
+      
+      for (let j = 0; j < this.especialistasList[i].especialidad.length; j++) {
+        
+        if(this.speciality.nombre == this.especialistasList[i].especialidad[j].nombre)
+        {
+          this.arrayEspecialista.push(this.especialistasList[i]);
+        }
+        
+      }
+      
+    }
+    console.log(this.arrayEspecialista);
   }
 
   showPatient(paciente: any) {
@@ -90,9 +127,9 @@ export class SolicitarTurnoComponent {
     console.log(paciente);
   }
 
-  showTurns(especialidad: any) {
+  showTurns(especialista: any) {
     this.turnsSelectionMenu = true;
-    this.speciality = especialidad;
+    this.activeEspecialista = especialista;
     this.loadFreeHours('');
     this.turnosAMostrar.forEach((t) => {
       this.diasAMostrar.push(t.fecha);
